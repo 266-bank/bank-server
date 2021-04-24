@@ -5,6 +5,7 @@ const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -20,3 +21,4 @@ app.use(routes);
 app.listen(PORT, function() {
     console.log(`👊🏻 ==> API server now listening on PORT ${PORT}!`);
 })
+
