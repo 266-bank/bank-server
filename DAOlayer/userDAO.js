@@ -1,4 +1,4 @@
-const pg = require("DAOlayer/ServerConnect");
+const pg = require("./ServerConnect");
 const db = pg.client;
 
 

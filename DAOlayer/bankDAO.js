@@ -1,4 +1,4 @@
-const pg = require("DAOlayer/ServerConnect");
+const pg = require("./ServerConnect");
 const db = pg.client;
 
 module.exports = {
@@ -30,7 +30,6 @@ module.exports = {
 
     userGetBalance : async (userName) => {
         db.connect();
-
         return db.query(`SELECT balance FROM bank WHERE username = ${userName};`)
             .then(res => console.log(`Balance is ` + res))
             .catch(err => console.log(err))
