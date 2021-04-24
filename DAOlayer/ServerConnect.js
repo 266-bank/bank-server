@@ -2,14 +2,14 @@ const db = require("pg");
 
 const { Client } = require('pg');
 
-const client = new Client({
+exports.client = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
 });
 
-client.connect();
+// client.connect();
 
 // exports.client = new Client({
 //     user: 'postgres',
