@@ -2,8 +2,9 @@ const DAOLayer = require("../DAOlayer");
 
 module.exports = {
     createUserAccount: function(req, res) {
+        console.log("createUserAcoount");
         // call the createUser in userDAO
-        DAOLayer.UserDAO.createUser(req)
+        return DAOLayer.UserDAO.createUser(req.body.username, req.body.password)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(500).json(err));
     }
