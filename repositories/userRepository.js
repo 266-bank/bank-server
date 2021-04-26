@@ -5,8 +5,8 @@ module.exports = {
         console.log("createUserAcoount");
         // call the createUser in userDAO
         return DAOLayer.UserDAO.createUser(req.body.username, req.body.password)
-        .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(500).json(err));
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(500).json(err));
     },
 
     loginUserAccount: function (req, res) {
