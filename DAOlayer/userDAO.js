@@ -19,6 +19,26 @@ module.exports = {
         } finally {
             db.close();
         }
+    },
+
+    loginUser: async (userName, passWord) => {
+        try{
+            await db.connect();
+            const queryString = `SELECT password FROM users WHERE username = '${userName}';`
+            const res = await db.query(queryString);
+            if(res === userName){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        catch (err) {
+            console.log(err.stack);
+            db.close();
+        }
+        finally {
+            db.close();
+        }
     }
 
 }
