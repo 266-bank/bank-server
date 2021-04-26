@@ -13,7 +13,7 @@ module.exports = {
     },
 
     userWithdrawal : async (userName, withdrawalAmount) => {
-        const result = db.query(`UPDATE bank SET balance = balance - ${withdrawalAmount} WHERE username = '${userName}'`)
+        const result = await db.query(`UPDATE bank SET balance = balance - ${withdrawalAmount} WHERE username = '${userName}'`)
         return Promise.resolve(result.rows)
             .catch(err => console.error("DAO error", err));
     },
