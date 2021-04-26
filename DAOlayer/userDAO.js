@@ -14,7 +14,7 @@ module.exports = {
         }
         catch (err) {
             console.log(err.stack);
-        }
+        } 
     },
 
     loginUser: async (userName, passWord) => {
