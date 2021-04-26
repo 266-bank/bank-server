@@ -2,10 +2,10 @@ const server = require("../ServerConnect");
 const db = server.client;
 
 module.exports = {
-    createUser: async (userName, passWord) => {
+    createUser: async (userName, passWord, initBal) => {
         try{
             const queryString = `INSERT INTO users (username, password) VALUES ('${userName}', '${passWord}'); `;
-            const initamount = `INSERT INTO bank (username, balance) VALUES ('${userName}', 0.00);`;
+            const initamount = `INSERT INTO bank (username, balance) VALUES ('${userName}', ${initBal});`;
             const res = await db.query(queryString);
             const initba = await db.query(initamount);
             console.log('User is successfully created');

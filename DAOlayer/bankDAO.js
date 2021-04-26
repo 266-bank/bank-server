@@ -1,7 +1,6 @@
 const server = require("../ServerConnect");
 const {callback} = require("pg");
 const db = server.client;
-//db.connect();
 
 module.exports = {
     userDeposit: async (userName, depositAmount) => {
