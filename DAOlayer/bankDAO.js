@@ -1,6 +1,5 @@
 const server = require("../ServerConnect");
 const db = server.client;
-//db.connect();
 
 module.exports = {
     userDeposit: async (userName, depositAmount) => {
