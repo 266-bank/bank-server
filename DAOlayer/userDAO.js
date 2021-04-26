@@ -4,7 +4,6 @@ const db = server.client;
 module.exports = {
     createUser: async (userName, passWord) => {
         try{
-            await db.connect();
             const queryString = `INSERT INTO users (username, password) VALUES ('${userName}', '${passWord}'); `;
             const initamount = `INSERT INTO bank (username, balance) VALUES ('${userName}', 0.00);`;
             const res = await db.query(queryString);
@@ -15,15 +14,11 @@ module.exports = {
         }
         catch (err) {
             console.log(err.stack);
-            db.close();
-        } finally {
-            db.close();
         }
     },
 
     loginUser: async (userName, passWord) => {
         try{
-            await db.connect();
             const queryString = `SELECT password FROM users WHERE username = '${userName}';`
             const res = await db.query(queryString);
             if(res === userName){
@@ -34,10 +29,6 @@ module.exports = {
         }
         catch (err) {
             console.log(err.stack);
-            db.close();
-        }
-        finally {
-            db.close();
         }
     }
 

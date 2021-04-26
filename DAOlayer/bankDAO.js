@@ -1,29 +1,29 @@
 const server = require("../ServerConnect");
+const {callback} = require("pg");
 const db = server.client;
 //db.connect();
 
 module.exports = {
     userDeposit: async (userName, depositAmount) => {
-        await db.connect();
-        return db.query(`UPDATE balance SET balance = balance + ${depositAmount} WHERE username = '${userName}'`)
-            .then(res => console.log('Deposit Success'))
-            .catch(err => console.log(err))
-            .finally(db.close());
+        await db.query(`UPDATE bank SET balance = balance + ${depositAmount} WHERE username = '${userName}'`);
+        const result = await db.query(`SELECT * FROM bank WHERE username = '${userName}';`);
+
+        return Promise.resolve(result.rows)
+            .catch(err => console.error("DAO error", err));
     },
 
     userWithdrawal : async (userName, withdrawalAmount) => {
-        await db.connect();
-        return db.query(`UPDATE bank SET balance = balance - ${withdrawalAmount} WHERE username = '${userName}'`)
-            .then(res => console.log(`withdrawal ${withdrawalAmount} Success`))
-            .catch(err => console.log(err))
-            .finally(db.close());
+        const result = db.query(`UPDATE bank SET balance = balance - ${withdrawalAmount} WHERE username = '${userName}'`)
+        return Promise.resolve(result.rows)
+            .catch(err => console.error("DAO error", err));
     },
 
     userGetBalance : async (userName) => {
-        await db.connect();
-        return db.query(`SELECT balance FROM bank WHERE username = '${userName}';`)
-            .then(res => console.log(`Balance is ` + res))
-            .catch(err => console.log(err))
-            .finally(db.close());
+        const result = await db.query(`SELECT * FROM bank WHERE username = '${userName}';`);
+        //console.log(result.rows[0]);
+        return Promise.resolve(result.rows)
+            .catch(err => console.error("DAO error", err))
+
+
     }
 };
