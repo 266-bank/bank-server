@@ -21,9 +21,12 @@ module.exports = {
         try{
             const queryString = `SELECT password FROM users WHERE username = '${userName}';`
             const res = await db.query(queryString);
-            if(res === userName){
+            //console.log(res.rows[0].password);
+            if(res.rows[0].password === passWord){
+                console.log('correct credentials, logged in');
                 return true;
             }else{
+                console.log('wrong credentials');
                 return false;
             }
         }
