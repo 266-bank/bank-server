@@ -6,7 +6,7 @@ module.exports = {
         return DAOLayer.BankDAO.userDeposit(req.body.username, req.body.amount)
             .catch(err => {
                 console.error("repo error", err);
-                process.exit(1);
+                // res.status(500).json(err);
             });
     },
 
@@ -14,7 +14,7 @@ module.exports = {
         return DAOLayer.BankDAO.userWithdrawal(req.body.username, req.body.amount)
             .catch(err => {
                 console.error("repo error", err);
-                process.exit(1);
+                // res.status(500).json(err);
             });
     },
 
@@ -22,7 +22,7 @@ module.exports = {
         const result = DAOLayer.BankDAO.userGetBalance(req.body.username);
         return result.catch(err => {
             console.error("repo error", err);
-            process.exit(1);
-        });
+            // res.status(500).json(err);
+    });
     }
 };

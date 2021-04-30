@@ -5,28 +5,40 @@ module.exports = {
         console.log("control")
         return Repo.Bank.userRepoDeposit(req)
         .then((result) => {
-            //console.log(result);
-            res.status(200).send(result);
+            console.log("--- Controller Layer ---");
+            console.log(result);
+            res.status(200).json(result);
         })
         // unsure about the status code
-        .catch(err => res.status(500).json(err));
+        .catch(err => {
+            console.log(err);
+            res.status(500);
+        });
     },
 
     userWithdrawal: function(req, res) {
         return Repo.Bank.userRepoWithdrawal(req)
         .then((result) => {
-            //console.log(result);
-            res.status(200).send(result);
+            console.log("--- Controller Layer ---");
+            console.log(result);
+            res.status(200).json(result);
         })
-        .catch(err => res.status(500).json(err));
+        .catch(err => {
+            console.log(err);
+            res.status(500);
+        });
     },
 
     userGetBalance: function(req, res) {
         return Repo.Bank.userRepoGetBalance(req)
         .then((result) => {
-            //console.log(result);
-            res.status(200).send(result);
+            console.log("--- Controller Layer ---");
+            console.log(result);
+            res.status(200).json(result);
         })
-        .catch(err => res.status(500).json(err));
+        .catch(err => {
+            console.log(err);
+            res.status(500);
+        });
     }
 };
