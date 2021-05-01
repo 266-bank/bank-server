@@ -2,31 +2,43 @@ const Repo = require("../repositories");
 
 module.exports = {
     userDeposit: function(req, res) {
-        console.log("control")
+        console.log("--- bankController Layer ---");
         return Repo.Bank.userRepoDeposit(req)
-        .then((result) => {
-            //console.log(result);
-            res.status(200).send(result);
+        .then(response => {
+            console.log("--- bankController Layer ---");
+            console.log(response);
+            res.status(200).json({ balance: response });
         })
         // unsure about the status code
-        .catch(err => res.status(500).json(err));
+        .catch(err => {
+            console.log(err);
+            res.status(500);
+        });
     },
 
     userWithdrawal: function(req, res) {
         return Repo.Bank.userRepoWithdrawal(req)
-        .then((result) => {
-            //console.log(result);
-            res.status(200).send(result);
+        .then(response => {
+            console.log("--- bankController Layer ---");
+            console.log(response);
+            res.status(200).json({ balance: response });
         })
-        .catch(err => res.status(500).json(err));
+        .catch(err => {
+            console.log(err);
+            res.status(500);
+        });
     },
 
     userGetBalance: function(req, res) {
         return Repo.Bank.userRepoGetBalance(req)
-        .then((result) => {
-            //console.log(result);
-            res.status(200).send(result);
+        .then(response => {
+            console.log("--- bankController Layer ---");
+            console.log(response);
+            res.status(200).json({ balance: response });
         })
-        .catch(err => res.status(500).json(err));
+        .catch(err => {
+            console.log(err);
+            res.status(500);
+        });
     }
 };

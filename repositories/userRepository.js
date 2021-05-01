@@ -1,19 +1,40 @@
 const DAOLayer = require("../DAOlayer");
 
 module.exports = {
-    createUserAccount: function(req, res) {
-        console.log("createUserAcoount");
-        // call the createUser in userDAO
-        return DAOLayer.UserDAO.createUser(req.body.username, req.body.password, req.body.initBal)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(500).json(err));
+    createUserAccount: async(req) => {
+        // can add "Failing fast" concept here? but idk wat criteria would be, mostly would be caught in the frontend?
+        console.log("--- UserRepository Layer ---");
+        let result = false;
+        await DAOLayer.UserDAO.createUser(req.body.username, req.header("Authorization"), req.body.initBal)
+            .then(dbRes => {
+                console.log("--- UserRepository Layer: response ---");
+                console.log(dbRes);
+                result = dbRes;
+
+            })
+            .catch(err => {
+                console.log("--- UserRepository Layer ---");
+                console.log(err);
+            });
+        console.log("result is: " + result);
+        return result;
     },
 
-    loginUserAccount: function (req, res) {
-        console.log("login");
-        return DAOLayer.UserDAO.loginUser(req.body.username, req.body.password)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(500).json(err));
-
+    loginUserAccount: async(req) => {
+        // can add "Failing fast" concept here... or in the frontend
+        console.log("UserRepository Layer - Login");
+        let loggedIn = false;
+        await DAOLayer.UserDAO.loginUser(req.body.username, req.header("Authorization"))
+            .then(dbRes => {
+                console.log("--- UserRepository Layer ---");
+                console.log(dbRes);
+                loggedIn = dbRes;
+            })
+            .catch(err => {
+                console.log("--- UserRepository Layer ---");
+                console.log(err);    
+            });
+        console.log("Login result: " + loggedIn);
+        return loggedIn;
     }
 };

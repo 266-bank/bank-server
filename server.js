@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const routes = require("./routes");
 const server = require("./ServerConnect");
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,7 @@ server.client.connect().then(err => {
 // Middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 // Serve up static assets - this is just temporary
 //     I kinda forgot how to do it
