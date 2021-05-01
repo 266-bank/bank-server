@@ -7,7 +7,7 @@ module.exports = {
         return Repo.User.createUserAccount(req).then(response => {
             console.log("--- UserController response ---");
             console.log(response);
-            res.json({ created:response});
+            res.status(200).json({ created:response });
         })
         .catch(err => {
             console.log(err);
@@ -21,7 +21,7 @@ module.exports = {
         return Repo.User.loginUserAccount(req).then(response => {
             console.log("--- UserController response ---");
             console.log(response);
-            res.json({ loggedIn:response});
+            res.status(200).json({ loggedIn:response});
         })
         .catch(err => {
             console.log(err);

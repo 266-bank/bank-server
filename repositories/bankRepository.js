@@ -1,28 +1,49 @@
 const DAOLayer = require("../DAOlayer");
 
 module.exports = {
-    userRepoDeposit: function(req, res) {
-        console.log("repo")
-        return DAOLayer.BankDAO.userDeposit(req.body.username, req.body.amount)
+    userRepoDeposit: async(req) => {
+        console.log("--- Bank Repository ---");
+        let balance = 0;
+        await DAOLayer.BankDAO.userDeposit(req.body.username, req.body.amount)
+            .then(response => {
+                console.log("--- Bank Repository ---");
+                console.log(response);
+                balance = response;
+            })
             .catch(err => {
+                console.log("--- Bank Repository ---");
                 console.error("repo error", err);
-                // res.status(500).json(err);
             });
+        return balance;
     },
 
-    userRepoWithdrawal: function(req, res) {
-        return DAOLayer.BankDAO.userWithdrawal(req.body.username, req.body.amount)
+    userRepoWithdrawal: async(req) => {
+        let balance = 0;
+        await DAOLayer.BankDAO.userWithdrawal(req.body.username, req.body.amount)
+            .then(response => {
+                console.log("--- Bank Repository ---");
+                console.log(response);
+                balance = response;
+            })
             .catch(err => {
+                console.log("--- Bank Repository ---");
                 console.error("repo error", err);
-                // res.status(500).json(err);
             });
-    },
+        return balance;
+},
 
-    userRepoGetBalance: function (req) {
-        const result = DAOLayer.BankDAO.userGetBalance(req.body.username);
-        return result.catch(err => {
-            console.error("repo error", err);
-            // res.status(500).json(err);
-    });
+    userRepoGetBalance: async(req) => {
+        let balance = 0;
+        await DAOLayer.BankDAO.userGetBalance(req.body.username)
+            .then(response => {
+                console.log("--- Bank Repository ---");
+                console.log(response);
+                balance = response;
+            })
+            .catch(err => {
+                console.log("--- Bank Repository ---");
+                console.error("repo error", err);
+            });
+        return balance;
     }
 };
