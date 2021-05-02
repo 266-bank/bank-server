@@ -1,18 +1,20 @@
 const Repo = require("../repositories");
 
 module.exports = {
-    createUser: function(req, res) {
+    createUser: async (req, res) => {
         console.log("--- createUser ---");
         console.log(req.body);
-        return Repo.User.createUserAccount(req).then(response => {
-            console.log("--- UserController response ---");
-            console.log(response);
-            res.status(200).json({ created:response });
+        return await Repo.User.createUserAccount(req).then(result => {
+            try{
+                console.log("--- UserController response ---");
+                console.log(result);
+                res.status(200).json({ created:result});
+            }
+            catch (err){
+                console.log(err);
+                res.status(500);
+            }
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500);
-        });
     },
 
     loginUser: function(req, res) {

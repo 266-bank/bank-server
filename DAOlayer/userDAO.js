@@ -6,7 +6,7 @@ const saltRounds = 10;
 module.exports = {
     createUser: async (userName, passWord, initBal) => {
 
-        let success = false;
+
         // To verify if the username already exists
         console.log("--- DAO --- Username is: ");
         console.log(userName);
@@ -19,16 +19,18 @@ module.exports = {
             //     values: [`'${userName}'`]
             // };
             const queryToVerifyUsername = `SELECT COUNT(*) FROM users WHERE username = '${userName}'`;
-            await db.query(queryToVerifyUsername).then(function(result) {
+            return db.query(queryToVerifyUsername).then(function(result) {
+
+                let success = false;
 
                 if(result.rows[0].count > 0) {
                     console.log("--- UserDAO Layer ---");
                     console.log("Username already exists");
-                    success = false;
+                    return false;
                 }
                 // Username does not exists, hash the pw and store
                 else {
-                    bcrypt.hash(passWord, saltRounds)
+                    return bcrypt.hash(passWord, saltRounds)
                     .then(function(hash) {
                         try{
                             const queryString = `INSERT INTO users (username, password) VALUES ('${userName}', '${hash}');`;
@@ -37,31 +39,32 @@ module.exports = {
                             db.query(initamount);
                             console.log("--- UserDAO Layer ---");
                             console.log('User is successfully created');
-                            success = true;
+                            return true;
                         }
                         catch (err) {
                             // should we be sending error back to the client instead of just logging here?
                             console.log("--- UserDAO Layer ---");
                             console.log("Caught error while querying");
                             console.log(err);
-                            success = false;
+                            return false;
                         } 
                     })
                     .catch(err => {
                         console.log("--- UserDAO Layer ---");
                         console.log("Caught error while hashing password.");
                         console.log(err);
-                        success = false;
-                    });        
+                        return false;
+                    });
                 }
+                //return success;
             });
         }
         catch(err) {
             console.log("--- UserDAO Layer ---");
             console.log(err);
-            success = false;
+            return false;
         };
-        return success;
+
     },
 
     loginUser: async (userName, passWord) => {
@@ -69,20 +72,23 @@ module.exports = {
         console.log(userName);
         console.log(passWord);
         let success = false;
+
         try{
             // can leave it as it is, or make it prepared statement
             const queryString = `SELECT password FROM users WHERE username = '${userName}';`;
-            await db.query(queryString).then(result => {
+            return await db.query(queryString).then(result => {
                 // Match the hashed pw
                 success = bcrypt.compare(passWord, result.rows[0].password);
                 console.log("match : " + success);
+                return success
             });
         }
         catch (err) {
             console.log("Caught error while trying to get data from database.");
             console.log(err.stack);
             success = false;
+            return success
         }
-        return success;
+        //return success;
     }
 };
