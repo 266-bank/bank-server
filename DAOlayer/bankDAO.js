@@ -16,9 +16,18 @@ module.exports = {
         console.log("--- BankDAO ---");
         console.log(userName);
         console.log(withdrawalAmount);
-        await db.query(`UPDATE bank SET balance = balance - ${withdrawalAmount} WHERE username = '${userName}'`);
-        const result = await db.query(`SELECT * FROM bank WHERE username = '${userName}';`);
-        return result.rows[0].balance;
+        const currentBalanceQuery = await db.query(`SELECT balance FROM bank WHERE username = '${userName}';`)
+        const currentBalance = currentBalanceQuery.rows[0].balance;
+        console.log("current balance: ", currentBalance);
+        if (currentBalance >= withdrawalAmount) {
+            await db.query(`UPDATE bank SET balance = balance - ${withdrawalAmount} WHERE username = '${userName}'`);
+            const result = await db.query(`SELECT * FROM bank WHERE username = '${userName}';`);
+            return result.rows[0].balance;
+        } else {
+            console.log("aww, currentBalance < withdraw amount");
+            return -1;
+        }
+
     },
 
     userGetBalance : async (userName) => {
