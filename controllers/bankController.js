@@ -4,8 +4,12 @@ module.exports = {
     userDeposit: function(req, res) {
         console.log("--- bankController Layer ---");
         if (req.body.amount < 0) {
-            return res.status(406).json('incorrect deposit amount');
+            return res.status(406).json('Invalid deposit amount');
         }
+        if(!req.body.username.trim() || !req.header("Authorization").trim()) {
+            return res.status(400).json('Access Denied');
+        }
+
         return Repo.Bank.userRepoDeposit(req)
         .then(response => {
             console.log("--- bankController Layer ---");
@@ -32,6 +36,10 @@ module.exports = {
         if (req.body.amount < 0) {
             return res.status(406).json('incorrect withdraw amount');
         }
+        if(!req.body.username.trim() || !req.header("Authorization").trim()) {
+            return res.status(400).json('Access Denied');
+        }
+
         return Repo.Bank.userRepoWithdrawal(req)
         .then(response => {
             console.log("--- bankController Layer ---");
@@ -54,6 +62,10 @@ module.exports = {
     },
 
     userGetBalance: function(req, res) {
+        if(!req.params.username.trim() || !req.header("Authorization").trim()) {
+            return res.status(400).json('Access Denied');
+        }
+
         return Repo.Bank.userRepoGetBalance(req)
         .then(response => {
             console.log("--- bankController Layer ---");
