@@ -4,7 +4,7 @@ module.exports = {
     createUserAccount: async(req) => {
         // can add "Failing fast" concept here? but idk wat criteria would be, mostly would be caught in the frontend?
         console.log("--- UserRepository Layer ---");
-        const result = await DAOLayer.UserDAO.createUser(req.body.username, req.header("Authorization"), req.body.initBal)
+        const result = await DAOLayer.UserDAO.createUser(req.body.username, req.body.password, req.body.initBal)
             .then(dbRes => {
                 console.log("--- UserRepository Layer: response ---");
                 console.log(dbRes);

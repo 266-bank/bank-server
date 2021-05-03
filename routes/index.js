@@ -9,7 +9,7 @@ router.route("/login").post(userController.loginUser);
 
 // Bank
 // matches with /:username/balance
-router.route("/balance").get(bankController.userGetBalance);
+router.route("/balance/:username").get(bankController.userGetBalance);
 // matches with /deposit
 router.route("/deposit").post(bankController.userDeposit);
 // matches with /withdrawal

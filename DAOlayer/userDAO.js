@@ -12,6 +12,7 @@ module.exports = {
         console.log(userName);
         console.log(passWord);
         console.log(initBal);
+
         try {
             // const queryToVerifyUsername = {
             //     name: 'Verify-username',
