@@ -25,7 +25,6 @@ module.exports = {
                 res.status(502).json("Undefined Error");
             }
         })
-        // unsure about the status code
         .catch(err => {
             console.log(err);
             res.status(500);

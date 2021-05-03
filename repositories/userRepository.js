@@ -23,12 +23,10 @@ module.exports = {
     loginUserAccount: async(req) => {
         // can add "Failing fast" concept here... or in the frontend
         console.log("UserRepository Layer - Login");
-        //let loggedIn = false;
         return await DAOLayer.UserDAO.loginUser(req.body.username, req.header("Authorization"))
             .then(dbRes => {
                 console.log("--- UserRepository Layer ---");
                 console.log(dbRes);
-                //loggedIn = dbRes;
                 return dbRes
             })
             .catch(err => {
@@ -36,6 +34,5 @@ module.exports = {
                 console.log(err);
                 return false;
             });
-        //console.log("Login result: " + loggedIn);
     }
 };
