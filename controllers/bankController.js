@@ -11,7 +11,7 @@ module.exports = {
             console.log("--- bankController Layer ---");
             console.log(response);
             if (response >= 0) {
-                res.status(200).json({ balance: response });
+                res.status(201).json({ balance: response });
             } else if (response == -1){
                 res.status(406).json('invalid Deposit');
             } else if (response == -2){
@@ -37,7 +37,7 @@ module.exports = {
             console.log("--- bankController Layer ---");
             console.log(response);
             if (response >= 0) {
-                res.status(200).json({ balance: response });
+                res.status(201).json({ balance: response });
             } else if (response == -1){
                 res.status(406).json('invalid withdrawal');
             } else if (response == -2){
@@ -59,7 +59,7 @@ module.exports = {
             console.log("--- bankController Layer ---");
             console.log(response);
             if (response >= 0) {
-                res.status(200).json({ balance: response });
+                res.status(201).json({ balance: response });
             } else if (response == -2){
                 res.status(401).json('Authorization failed');
             }else{

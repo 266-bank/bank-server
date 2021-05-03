@@ -14,7 +14,7 @@ module.exports = {
                 console.log("--- UserController response ---");
                 console.log(result);
               if (result === true) {
-                res.status(200).json({ created:result });
+                res.status(201).json({ created:result });
               } else {
                   res.status(400).json({ created:result });
               }
@@ -33,7 +33,7 @@ module.exports = {
             console.log("--- UserController response ---");
             console.log(response);
             if (response === true) {
-                res.status(200).json({loggedIn:response});
+                res.status(201).json({loggedIn:response});
             } else {
                 res.status(400).json({loggedIn:response})
             }
