@@ -5,7 +5,8 @@ module.exports = {
         console.log("--- createUser ---");
         console.log(req.body);
       
-        if (!req.body.username.trim() || !req.body.password || (req.body.initBal < 0)) {
+        if (!req.body.username.trim() || !req.body.password.trim() 
+            || (req.body.initBal < 0)) {
             return res.status(400).json('incorrect form submission');
         }
 
@@ -28,6 +29,10 @@ module.exports = {
 
     loginUser: function(req, res) {
         console.log("login");
+
+        if (!req.body.username.trim() || !req.header("Authorization").trim()) {
+            return res.status(400).json('incorrect form submission');
+        }
 
         return Repo.User.loginUserAccount(req).then(response => {
             console.log("--- UserController response ---");
