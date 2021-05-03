@@ -5,7 +5,7 @@ module.exports = {
         console.log("--- createUser ---");
         console.log(req.body);
       
-        if (!req.body.username || !req.header("Authorization")) {
+        if (!req.body.username.trim() || !req.body.password || (req.body.initBal < 0)) {
             return res.status(400).json('incorrect form submission');
         }
 
