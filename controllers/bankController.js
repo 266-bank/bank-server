@@ -33,9 +33,6 @@ module.exports = {
     },
 
     userWithdrawal: function(req, res) {
-        if (req.body.amount < 0) {
-            return res.status(406).json('incorrect withdraw amount');
-        }
         if(!req.body.username.trim() || !req.header("Authorization").trim()) {
             return res.status(400).json('Access Denied');
         }
