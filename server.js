@@ -5,7 +5,7 @@ const server = require("./ServerConnect");
 const cors = require("cors");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 server.client.connect().then(err => {
     if (err) {
