@@ -10,6 +10,11 @@ module.exports = {
             return res.status(400).json('incorrect form submission');
         }
 
+        let validRE = /[^_\-.0-9a-z]+/;
+        if (req.body.username.match(validRE) !== null || req.body.password.match(validRE) !== null) {
+            return res.status(401).json('invalid username or password characters');
+        }
+
         return await Repo.User.createUserAccount(req).then(result => {
             try {
                 console.log("--- UserController response ---");
@@ -17,7 +22,7 @@ module.exports = {
               if (result === true) {
                 res.status(201).json({ created:result });
               } else {
-                  res.status(400).json({ created:result });
+                res.status(400).json({ created:result });
               }
             }
             catch (err){
